@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Video App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./player.js" charset="utf-8"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="video-container">
+            <div class="player">
+                <video id='video' controls poster="./img/placeholder-bigbuckbunny-1080p.png">
+                    <source src="http://media.w3.org/2010/05/bunny/movie.mp4" type="video/mp4">
+                    <source src="http://media.w3.org/2010/05/bunny/movie.ogv" type="video/ogg">
+                </video>
+
+
+            </div>
+
+
+            <div class="description">
+                <h2 class="description-title">Big Buck Bunny</h2>
+                <p class="description-director">
+                    Director:
+                    <span class="director">Sacha Goedegebure</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="movies-container">
+            <div class="movies-list">
+                <ul class="movies-list-items">
+                    <!-- <li class="movies-item">
+                        <div class="movies-item-image">
+                            <img src="./img/cover-bigbuckbunny.png" alt="Big Buck Bunny" data-title="Big Buck Bunny"/>
+                        </div>
+                        <div class="movies-item-description">
+                            <h3 class="movies-item-title">Big Buck Bunny</h3>
+                            <p class="movies-item-release_Date">2014</p>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="loader">
+        <div class='peeek-loading'>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
