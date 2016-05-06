@@ -14,6 +14,64 @@ window.onload = function () {
 
     // CUSTOM CONTROLS
 
+    var playButton = document.getElementById("playpause");
+    var muteButton = document.getElementById('mute');
+    var fullScreenButton = document.getElementById("fs");
+    var video = document.querySelector('video');
+    var progress = document.getElementById('progress');
+    var progressBar = document.getElementById('progress-bar');
+
+
+    //mute
+    muteButton.addEventListener("click", function() {
+        if (video.muted == false) {
+            video.muted = true;
+            muteButton.setAttribute('data-state', 'unmute');
+        } else {
+            video.muted = false;
+            muteButton.setAttribute('data-state', 'mute');
+        }
+    });
+
+    //fullscreen
+    fullScreenButton.addEventListener("click", function() {
+        if (video.requestFullscreen) {
+            video.requestFullscreen();
+        } else if (video.mozRequestFullScreen) {
+            video.mozRequestFullScreen(); // Firefox
+        } else if (video.webkitRequestFullscreen) {
+            video.webkitRequestFullscreen(); // Chrome and Safari
+        }
+    });
+
+    progress.addEventListener('click', function(e) {
+        var coords = e.target.getBoundingClientRect();
+        var left = coords.left + pageXOffset;
+        var pos = (e.pageX - left) / this.offsetWidth;
+        video.currentTime = (pos * video.duration);
+        console.log(video.duration);
+    });
+
+    //play
+    playButton.addEventListener("click", function() {
+        if (video.paused == true) {
+            video.play();
+            playButton.setAttribute('data-state', 'pause');
+        } else {
+            video.pause();
+            playButton.setAttribute('data-state', 'play');
+        }
+
+        video.addEventListener('timeupdate', function() {
+            // For mobile browsers, ensure that the progress element's max attribute is set
+            progress.setAttribute('max', video.duration);
+            progress.value = video.currentTime;
+            progressBar.style.width = Math.floor((video.currentTime / video.duration) * 100) + '%';
+        });
+    });
+
+
+
     // -----------------------------------------------
 
 
@@ -37,8 +95,10 @@ window.onload = function () {
             var moviesData = JSON.parse(response);
             var moviesList = document.getElementsByClassName('movies-list-items')[0]
 
+            //change video on click
             moviesList.addEventListener('click', changeVideo)
 
+            //load all movies
             for (var i = 0; i < moviesData.length; i++) {
                 moviesList.appendChild(createMovieItem(moviesData[i]))
             }
@@ -59,7 +119,8 @@ window.onload = function () {
                 var target = event.target;
                 if (target.tagName != 'IMG') return;
                 var title = target.getAttribute("alt");
-
+                playButton.setAttribute('data-state', 'play');
+                muteButton.setAttribute('data-state', 'mute');
                 //search and get the right data using title
                 for (var i = 0; i < moviesData.length; i++) {
                     if (moviesData[i].title == title) {
@@ -67,6 +128,8 @@ window.onload = function () {
                         var poster = moviesData[i].images.placeholder;
                         var director = moviesData[i].meta.directors[0].name;
                         var newVideo = createVideo(streams, poster);
+                        video = newVideo;
+                        console.log(video);
                         changeDescription(title, director)
                         player.replaceChild(newVideo, oldVideo)
                     }
@@ -82,7 +145,7 @@ window.onload = function () {
                 // console.log(streams, poster);
                 var video = document.createElement('video');
                 video.setAttribute('poster', "./img/" + poster);
-                video.setAttribute('controls', true);
+                // video.setAttribute('controls', true);
                 for (var i = 0; i < streams.length; i++) {
                     var src = streams[i].url;
                     var type = streams[i].type;
@@ -95,8 +158,6 @@ window.onload = function () {
                 // console.log(video);
                 return video;
             }
-
-
 
         });
     }

@@ -12,12 +12,20 @@
     <div class="container">
         <div class="video-container">
             <div class="player">
-                <video id='video' controls poster="./img/placeholder-bigbuckbunny-1080p.png">
+                <video id='video' poster="./img/placeholder-bigbuckbunny-1080p.png">
                     <source src="http://media.w3.org/2010/05/bunny/movie.mp4" type="video/mp4">
                     <source src="http://media.w3.org/2010/05/bunny/movie.ogv" type="video/ogg">
                 </video>
-
-
+                <div id="video-controls" class="controls" data-state="hidden">
+                    <button id="playpause" type="button" data-state="play">Play/Pause</button>
+                    <div class="progress">
+                        <progress id="progress" value="0" min="0">
+                            <span id="progress-bar"></span>
+                        </progress>
+                    </div>
+                    <button id="mute" type="button" data-state="mute">Mute/Unmute</button>
+                    <button id="fs" type="button" data-state="go-fullscreen">Fullscreen</button>
+                </div>
             </div>
 
 
