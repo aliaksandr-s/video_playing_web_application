@@ -44,6 +44,7 @@ window.onload = function () {
         }
     });
 
+    //change progress
     progress.addEventListener('click', function(e) {
         var coords = e.target.getBoundingClientRect();
         var left = coords.left + pageXOffset;
